@@ -15,14 +15,22 @@ const Options = ({ optionType }) => {
   const [error, setError] = useState(false);
   // optionType : 'scoops' | 'toppings'
   useEffect(() => {
+    const controller = new AbortController();
+
     (async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3030/${optionType}`);
+        const { data } = await axios.get(`http://localhost:3030/${optionType}`, {
+          signal: controller.signal,
+        });
         setOptions(data);
       } catch (err) {
         setError(true);
       }
     })();
+
+    return () => {
+      controller.abort();
+    };
   }, [optionType]);
 
   if (error) return <AlertBanner />;

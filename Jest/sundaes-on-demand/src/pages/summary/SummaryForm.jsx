@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { Button, Form, OverlayTrigger, Popover } from "react-bootstrap";
 
-const SummaryForm = () => {
+const SummaryForm = ({ setOrderPhase }) => {
   const [disabled, setDisabled] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setOrderPhase("completed");
+  };
 
   const handleCheckBoxChange = (e) => setDisabled(e.target.checked);
 
@@ -22,7 +28,7 @@ const SummaryForm = () => {
   );
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="terms-and-conditions">
         <Form.Check type="checkbox" checked={disabled} onChange={handleCheckBoxChange} label={checkboxLabel} />
       </Form.Group>

@@ -16,7 +16,7 @@ test.only("handles error for scoops and toppings routes", async () => {
     }),
   ]);
 
-  render(<OrderEntry />);
+  render(<OrderEntry setOrderPhase={jest.fn()} />);
 
   // 2번의 네트요청이 완료될 때 까지 대기해야하기 위해 waitFor 함수를 사용한다.
   await waitFor(async () => {
